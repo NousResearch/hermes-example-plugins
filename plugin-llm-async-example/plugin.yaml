@@ -1,0 +1,8 @@
+name: plugin-llm-async-example
+version: 1.0.0
+description: "Async reference plugin for ctx.llm — registers /translate, which runs forward + back translations concurrently via asyncio.gather() to demonstrate why acomplete() exists."
+author: NousResearch
+hooks: []
+provides:
+  commands:
+    - translate
