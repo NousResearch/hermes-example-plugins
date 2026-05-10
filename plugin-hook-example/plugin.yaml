@@ -1,0 +1,8 @@
+name: plugin-hook-example
+version: 1.0.0
+description: "Reference plugin showing the transform_llm_output lifecycle hook. Redacts SSN, Luhn-valid credit card numbers, and common API-key shapes (OpenAI, Anthropic, AWS, GitHub) from assistant output before it leaves the agent loop, and emits a structured audit log line per redaction so operators can see what was caught."
+author: NousResearch
+hooks:
+  - transform_llm_output
+provides:
+  commands: []
