@@ -1,0 +1,7 @@
+name: plugin-tool-example
+version: 1.0.0
+description: "Reference plugin for ctx.register_tool() - registers one deterministic text_stats tool with JSON Schema validation and structured responses."
+author: NousResearch
+hooks: []
+provides_tools:
+  - text_stats
