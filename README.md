@@ -8,6 +8,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 
 | Plugin | Surface | Demonstrates |
 |---|---|---|
+| [`plugin-tool-example`](./plugin-tool-example) | `ctx.register_tool()` | A model-callable tool — JSON Schema, argument validation, structured `tool_result()` / `tool_error()` responses |
 | [`plugin-llm-example`](./plugin-llm-example) | `ctx.llm.complete_structured()` | Host-owned structured LLM calls — typed text/image input, JSON Schema validation, trust-gate config |
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
@@ -21,12 +22,14 @@ Each directory is a self-contained plugin. To run one in your own Hermes Agent s
 git clone https://github.com/NousResearch/hermes-example-plugins.git
 
 # pick whichever you want
+cp -r hermes-example-plugins/plugin-tool-example      ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-llm-example       ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-llm-async-example ~/.hermes/plugins/
 cp -r hermes-example-plugins/example-dashboard        ~/.hermes/plugins/
 cp -r hermes-example-plugins/strike-freedom-cockpit   ~/.hermes/plugins/
 
-# enable any with a slash command surface
+# enable whichever examples you copied
+hermes plugins enable plugin-tool-example
 hermes plugins enable plugin-llm-example
 hermes plugins enable plugin-llm-async-example
 ```
@@ -41,6 +44,7 @@ Pair each plugin in this repo with its docs page:
 
 | Plugin here | Docs page |
 |---|---|
+| `plugin-tool-example` | [Build a Hermes Plugin](https://hermes-agent.nousresearch.com/docs/guides/build-a-hermes-plugin) |
 | `plugin-llm-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `plugin-llm-async-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
