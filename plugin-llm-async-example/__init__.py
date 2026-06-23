@@ -8,28 +8,28 @@ docs page. Demonstrates the async surface (``acomplete()`` /
 genuinely couldn't:
 
 * registers a single ``/translate <lang>: <text>`` slash command,
-* fires two LLM calls **concurrently** via ``asyncio.gather()`` —
-  one to translate forward into the target language, one to
-  back-translate the result into English so the plugin can score
-  semantic preservation,
-* returns the translation plus a confidence note.
+* runs two independent LLM calls concurrently via ``asyncio.gather()``:
+  the forward translation into the target language, and a one-word
+  sentiment classification of the original text,
+* then runs a back-translation of the forward result into English. That
+  call is serial because it needs the forward translation as its input,
+  and it lets the plugin score how well the meaning survived,
+* returns the translation, a confidence note, and the category.
 
-Running both calls in parallel via ``acomplete()`` cuts wall-clock
-in roughly half compared to two sequential ``complete()`` calls.
-That's the reason the async surface exists, and this plugin is the
-smallest piece of code that exercises it end-to-end.
+Overlapping the sentiment call with the forward translation hides one
+round-trip behind another, which is the kind of win the async surface
+exists for. This plugin is the smallest piece of code that exercises
+``acomplete()`` end-to-end.
 
 Usage::
 
     /translate fr: How does this work in practice?
-    →  Forward (en→fr): Comment cela fonctionne-t-il en pratique ?
-       Back-check  : How does this work in practice?
-       Confidence  : exact match
-
-    /translate ja: I'll be there in five minutes.
-    →  Forward (en→ja): 5分でそちらに伺います。
-       Back-check  : I will be there in five minutes.
-       Confidence  : near-exact
+    Forward (en→fr): Comment cela fonctionne-t-il en pratique ?
+    Back-check       : How does this work in practice?
+    Confidence       : exact match
+    Category         : question
+    ---
+    via openai/gpt-4o · 318 tokens · 1.1s
 
 The trust gate defaults are fully restrictive — the plugin runs
 against whatever provider+model the user has active. Operators who
