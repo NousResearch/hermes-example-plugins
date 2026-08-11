@@ -12,6 +12,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
 | [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
+| [`skin-studio`](./skin-studio) | desktop theme editor + dashboard backend | Full theme editor — wallpapers/video backdrops, extended palette, bold/typography, global FX layer (digit wall / hanzi rain / CRT scanlines), one-click apply via the native skins path |
 
 ## Installing an example as a user plugin
 
@@ -25,6 +26,8 @@ cp -r hermes-example-plugins/plugin-llm-example       ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-llm-async-example ~/.hermes/plugins/
 cp -r hermes-example-plugins/example-dashboard        ~/.hermes/plugins/
 cp -r hermes-example-plugins/strike-freedom-cockpit   ~/.hermes/plugins/
+cp -r hermes-example-plugins/skin-studio              ~/.hermes/plugins/
+cp -r hermes-example-plugins/skin-studio              ~/.hermes/desktop-plugins/
 
 # enable any with a slash command surface
 hermes plugins enable plugin-llm-example
