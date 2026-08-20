@@ -12,6 +12,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
 | [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
+| [`bot-sessions`](./bot-sessions) | `@hermes/plugin-sdk` (desktop) | Per-bot conversation browser — profile-routed RPC, live gateway events, follow-the-active-bot, `ctx.storage` |
 
 ## Installing an example as a user plugin
 
@@ -33,6 +34,14 @@ hermes plugins enable plugin-llm-async-example
 
 For dashboard plugins, restart the web UI (or `GET /api/dashboard/plugins/rescan`) to pick up the new tab. To uninstall, `rm -rf ~/.hermes/plugins/<name>` and the corresponding rescan / `hermes plugins disable`.
 
+**Desktop plugins** install into a different root — the native app's disk door:
+
+```bash
+cp -r hermes-example-plugins/bot-sessions ~/.hermes/desktop-plugins/
+```
+
+The desktop app hot-loads the folder within seconds (⌘K → **Reload desktop plugins** if needed); uninstall by deleting the folder.
+
 ## Reading order for plugin authors
 
 The plugins here are deliberately minimal — each one shows **one** plugin surface in the smallest amount of code that demonstrates it. Companion docs for each surface live in the main hermes-agent docs site under [Developer Guide → Extending](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing).
@@ -45,6 +54,7 @@ Pair each plugin in this repo with its docs page:
 | `plugin-llm-async-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 | `strike-freedom-cockpit` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
+| `bot-sessions` | [Desktop Plugin SDK](https://hermes-agent.nousresearch.com/docs/developer-guide/desktop-plugin-sdk) |
 
 ## Contributing a new example
 
