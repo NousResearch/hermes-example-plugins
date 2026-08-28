@@ -8,6 +8,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 
 | Plugin | Surface | Demonstrates |
 |---|---|---|
+| [`profile-studio`](./profile-studio) | Desktop `PANES_AREA` + `SIDEBAR_NAV_AREA` + `PALETTE_AREA` | Agent profile management pane — roster, identity sheet, Persona-to-SOUL generator, model picker | **desktop** |
 | [`plugin-llm-example`](./plugin-llm-example) | `ctx.llm.complete_structured()` | Host-owned structured LLM calls — typed text/image input, JSON Schema validation, trust-gate config |
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
@@ -20,7 +21,7 @@ Each directory is a self-contained plugin. To run one in your own Hermes Agent s
 ```bash
 git clone https://github.com/NousResearch/hermes-example-plugins.git
 
-# pick whichever you want
+# pick whichever you want — Python gateway plugins
 cp -r hermes-example-plugins/plugin-llm-example       ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-llm-async-example ~/.hermes/plugins/
 cp -r hermes-example-plugins/example-dashboard        ~/.hermes/plugins/
@@ -29,6 +30,10 @@ cp -r hermes-example-plugins/strike-freedom-cockpit   ~/.hermes/plugins/
 # enable any with a slash command surface
 hermes plugins enable plugin-llm-example
 hermes plugins enable plugin-llm-async-example
+
+# Desktop plugin — install to ~/.hermes/desktop-plugins/ instead
+cp -r hermes-example-plugins/profile-studio ~/.hermes/desktop-plugins/
+# Desktop plugins hot-reload automatically; no enable needed
 ```
 
 For dashboard plugins, restart the web UI (or `GET /api/dashboard/plugins/rescan`) to pick up the new tab. To uninstall, `rm -rf ~/.hermes/plugins/<name>` and the corresponding rescan / `hermes plugins disable`.
@@ -41,6 +46,7 @@ Pair each plugin in this repo with its docs page:
 
 | Plugin here | Docs page |
 |---|---|
+| `profile-studio` | [Desktop Plugin SDK](https://hermes-agent.nousresearch.com/docs/developer-guide/desktop-plugin-sdk) |
 | `plugin-llm-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `plugin-llm-async-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
