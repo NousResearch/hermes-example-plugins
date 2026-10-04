@@ -1,6 +1,6 @@
 name: plugin-llm-async-example
 version: 1.0.0
-description: "Async reference plugin for ctx.llm. Registers /translate, which runs the forward translation and a sentiment classification concurrently via asyncio.gather(), then back-translates serially, to demonstrate why acomplete() exists."
+description: "Async reference plugin for ctx.llm. Registers /translate, which runs the forward translation and a one-word classification concurrently via asyncio.gather(), then back-translates serially, to demonstrate why acomplete() exists."
 author: NousResearch
 hooks: []
 provides:

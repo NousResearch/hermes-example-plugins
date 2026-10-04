@@ -3,20 +3,20 @@ plugin-llm-async-example — async reference plugin for ``ctx.llm``.
 
 Companion to the
 `Plugin LLM Access <https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access>`_
-docs page. Demonstrates the async surface (``acomplete()`` /
-``acomplete_structured()``) by doing something the sync surface
-genuinely couldn't:
+docs page. Demonstrates the async surface (``acomplete()``) by doing
+something the sync surface genuinely couldn't:
 
 * registers a single ``/translate <lang>: <text>`` slash command,
 * runs two independent LLM calls concurrently via ``asyncio.gather()``:
   the forward translation into the target language, and a one-word
-  sentiment classification of the original text,
+  classification of the original text (statement, question, request,
+  greeting or other),
 * then runs a back-translation of the forward result into English. That
   call is serial because it needs the forward translation as its input,
   and it lets the plugin score how well the meaning survived,
 * returns the translation, a confidence note, and the category.
 
-Overlapping the sentiment call with the forward translation hides one
+Overlapping the classification call with the forward translation hides one
 round-trip behind another, which is the kind of win the async surface
 exists for. This plugin is the smallest piece of code that exercises
 ``acomplete()`` end-to-end.
@@ -44,7 +44,8 @@ want to pin to a cheap model add::
               - openai/gpt-4o-mini
               - anthropic/claude-3-5-haiku
 
-…to ``config.yaml``. The plugin's optional ``model`` arg then works.
+…to ``config.yaml``. The plugin itself has no model flag; the gate is
+what a fork that adds one would need.
 """
 
 from __future__ import annotations
