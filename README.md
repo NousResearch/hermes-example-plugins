@@ -12,6 +12,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
 | [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
+| [`plugin-hook-example`](./plugin-hook-example) | `ctx.register_hook()` | A `transform_llm_output` hook — keyword-only callback, `None` to pass through, masking SSNs/card numbers in the final text |
 
 ## Installing an example as a user plugin
 
@@ -25,10 +26,12 @@ cp -r hermes-example-plugins/plugin-llm-example       ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-llm-async-example ~/.hermes/plugins/
 cp -r hermes-example-plugins/example-dashboard        ~/.hermes/plugins/
 cp -r hermes-example-plugins/strike-freedom-cockpit   ~/.hermes/plugins/
+cp -r hermes-example-plugins/plugin-hook-example      ~/.hermes/plugins/
 
 # enable any with a slash command surface
 hermes plugins enable plugin-llm-example
 hermes plugins enable plugin-llm-async-example
+hermes plugins enable plugin-hook-example
 ```
 
 For dashboard plugins, restart the web UI (or `GET /api/dashboard/plugins/rescan`) to pick up the new tab. To uninstall, `rm -rf ~/.hermes/plugins/<name>` and the corresponding rescan / `hermes plugins disable`.
@@ -45,6 +48,7 @@ Pair each plugin in this repo with its docs page:
 | `plugin-llm-async-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 | `strike-freedom-cockpit` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
+| `plugin-hook-example` | [Event Hooks](https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks#transform_llm_output) |
 
 ## Contributing a new example
 

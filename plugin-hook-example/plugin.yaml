@@ -1,0 +1,6 @@
+name: plugin-hook-example
+version: 1.0.0
+description: "Reference plugin for ctx.register_hook(). A transform_llm_output hook that masks US SSNs and Luhn-valid card numbers in the final assistant text."
+author: NousResearch
+hooks:
+  - transform_llm_output
