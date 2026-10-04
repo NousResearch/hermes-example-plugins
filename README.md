@@ -12,9 +12,9 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 | [`plugin-llm-example`](./plugin-llm-example) | `ctx.llm.complete_structured()` | Host-owned structured LLM calls — typed text/image input, JSON Schema validation, trust-gate config |
 | [`plugin-llm-async-example`](./plugin-llm-async-example) | `ctx.llm.acomplete()` + `asyncio.gather()` | Async LLM lane — concurrent forward + sentiment + back-translation pass for `/translate` |
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
-| [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
 | [`plugin-hook-example`](./plugin-hook-example) | `ctx.register_hook()` | A `transform_llm_output` hook — keyword-only callback, `None` to pass through, masking SSNs/card numbers in the final text |
 | [`example-desktop-statusbar`](./example-desktop-statusbar) | `STATUSBAR_AREAS.right` + `render` | Desktop status-bar chip — a stateful React component in one slot, the app's tooltip, theme variables, no build step |
+| [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
 
 ## Installing an example as a user plugin
 
@@ -31,9 +31,6 @@ cp -r hermes-example-plugins/example-dashboard        ~/.hermes/plugins/
 cp -r hermes-example-plugins/strike-freedom-cockpit   ~/.hermes/plugins/
 cp -r hermes-example-plugins/plugin-hook-example      ~/.hermes/plugins/
 
-# desktop examples go in the desktop root instead
-cp -r hermes-example-plugins/example-desktop-statusbar ~/.hermes/desktop-plugins/
-
 # enable whichever examples you copied
 hermes plugins enable plugin-tool-example
 hermes plugins enable plugin-llm-example
@@ -44,6 +41,11 @@ hermes plugins enable plugin-hook-example
 For dashboard plugins, restart the web UI (or `GET /api/dashboard/plugins/rescan`) to pick up the new tab. To uninstall, `rm -rf ~/.hermes/plugins/<name>` and the corresponding rescan / `hermes plugins disable`.
 
 `example-desktop-statusbar` is a **desktop** plugin: it lives in `~/.hermes/desktop-plugins/<id>/plugin.js` rather than `~/.hermes/plugins/`, and the folder name has to match the plugin `id`. Hermes Desktop watches that root and hot-reloads on save — if the chip does not appear, run **⌘K → Reload desktop plugins**.
+
+```bash
+mkdir -p ~/.hermes/desktop-plugins
+cp -r hermes-example-plugins/example-desktop-statusbar ~/.hermes/desktop-plugins/
+```
 
 ## Reading order for plugin authors
 
@@ -57,9 +59,9 @@ Pair each plugin in this repo with its docs page:
 | `plugin-llm-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `plugin-llm-async-example` | [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) |
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
-| `strike-freedom-cockpit` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 | `plugin-hook-example` | [Event Hooks](https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks#transform_llm_output) |
 | `example-desktop-statusbar` | [Desktop Plugin SDK](https://hermes-agent.nousresearch.com/docs/developer-guide/desktop-plugin-sdk) |
+| `strike-freedom-cockpit` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 
 ## Contributing a new example
 
