@@ -14,14 +14,17 @@
  *   1. A disk plugin is loaded UNCOMPILED, so JSX will not parse. UI is built
  *      with jsx()/jsxs() from react/jsx-runtime, and only `@hermes/plugin-sdk`,
  *      `react` and `react/jsx-runtime` resolve.
- *   2. The app's tooltip paints its background on inline flow only. Separate
- *      lines with <br/>; a block child collapses the tooltip to an empty chip.
+ *   2. Timers belong to whoever can clean them up. A bare module-scope
+ *      setInterval survives disable and every hot reload; this one lives in
+ *      the chip's useEffect and is cleared on unmount (ctx.setInterval is the
+ *      equivalent outside React).
  *   3. Style with theme variables (`var(--ui-accent)`, `var(--ui-text-*)`) —
  *      never a hardcoded colour — so the chip follows every theme.
  *
  * Peak hours, UTC, Monday through Friday: 01:00-04:00 and 06:00-10:00;
- * everything else is off-peak. Source:
- * https://api-docs.deepseek.com/quick_start/pricing (footnote 1).
+ * everything else is off-peak. Chinese public holidays are off-peak all day;
+ * this example does not track the holiday calendar. Source: the peak-hours
+ * note on https://api-docs.deepseek.com/quick_start/pricing.
  */
 
 import { STATUSBAR_AREAS, Tip } from '@hermes/plugin-sdk'
@@ -106,12 +109,11 @@ function Chip() {
   const left = change ? fmtLeft(change - now) : ''
   const at = change ? fmtLocal(change, now) : ''
 
-  // Two short lines: which rate is running now, and until when. The app's
-  // tooltip paints its background on inline flow only, so the break is a <br/>.
+  // Two short lines: which rate is running now, and until when.
   const tip = jsxs('span', {
     children: [
       offPeak ? 'Off-peak · 50% off' : 'Peak · full price',
-      jsx('br', { key: 'br' }),
+      jsx('br', {}),
       change ? `Ends ${at} · in ${left}` : 'No upcoming switch'
     ]
   })
@@ -127,7 +129,7 @@ function Chip() {
           height: 12,
           viewBox: '0 0 24 24',
           'aria-hidden': 'true',
-          children: WHALE.map((d, i) => jsx('path', { d, fill: 'currentColor', key: i }))
+          children: WHALE.map((d, i) => jsx('path', { d, fill: 'currentColor' }, i))
         }),
         jsx('span', { style: { fontVariantNumeric: 'tabular-nums' }, children: left })
       ]
