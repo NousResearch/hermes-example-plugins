@@ -1,6 +1,6 @@
 # plugin-llm-async-example
 
-Async reference plugin for `ctx.llm`. The companion to [`plugin-llm-example`](../plugin-llm-example) — same plugin context surface, but built around the async methods (`acomplete()`, `acomplete_structured()`) and `asyncio.gather()` to demonstrate why the async lane exists.
+Async reference plugin for `ctx.llm`. The companion to [`plugin-llm-example`](../plugin-llm-example) — same plugin context surface, but built around `ctx.llm.acomplete()` and `asyncio.gather()` to demonstrate why the async lane exists.
 
 ## What it does
 
@@ -42,7 +42,7 @@ With sync `complete()` those two would run sequentially — wall-clock roughly d
 - you can fan out with `asyncio.gather()`, `asyncio.wait()`, `asyncio.as_completed()`,
 - you can run inside an async slash command handler, gateway adapter, or any plugin code already on an asyncio loop.
 
-This plugin is the smallest piece of code that exercises all three concurrency patterns. Read it alongside the [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) docs page.
+This plugin uses the first, `asyncio.gather()`, the common case. Read it alongside the [Plugin LLM Access](https://hermes-agent.nousresearch.com/docs/developer-guide/plugin-llm-access) docs page.
 
 ## Try it
 
@@ -81,8 +81,8 @@ The plugin doesn't currently surface a model-picking flag, but if you fork it to
 
 | File | Lines | Purpose |
 |---|---|---|
-| `__init__.py` | ~180 | The plugin — `register(ctx)` + async `/translate` handler + `_confidence()` heuristic |
-| `plugin.yaml` | 9 | Manifest |
+| `__init__.py` | ~225 | The plugin — `register(ctx)` + async `/translate` handler + `_confidence()` heuristic |
+| `plugin.yaml` | 8 | Manifest |
 | `README.md` | this file | |
 
 ## Pairing with the sync example
