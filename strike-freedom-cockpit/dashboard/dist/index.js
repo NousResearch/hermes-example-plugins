@@ -106,14 +106,21 @@
 
     // Map real status signals to HUD telemetry. Energy/shield/power
     // aren't literal concepts on a software agent, so we read them from
-    // adjacent signals: active sessions, gateway connected-platforms,
-    // and agent-online health.
-    const energy = status && status.gateway_online ? 92 : 18;
-    const shield = status && status.connected_platforms
-      ? Math.min(100, 40 + (status.connected_platforms.length * 15))
-      : 70;
-    const power = status && status.active_sessions
-      ? Math.min(100, 55 + (status.active_sessions.length * 10))
+    // adjacent /api/status fields: agent-online health (gateway_running),
+    // connected platforms (gateway_platforms entries whose state is
+    // "connected") and the active_sessions count.
+    const online = Boolean(status && status.gateway_running);
+    const platforms = status && status.gateway_platforms
+      ? Object.values(status.gateway_platforms)
+      : null;
+    const connected = platforms
+      ? platforms.filter(function (p) { return p && p.state === "connected"; }).length
+      : 0;
+
+    const energy = online ? 92 : 18;
+    const shield = platforms ? Math.min(100, 40 + (connected * 15)) : 70;
+    const power = status && typeof status.active_sessions === "number"
+      ? Math.min(100, 55 + (status.active_sessions * 10))
       : 87;
 
     const hero = cssVar("--theme-asset-hero");
@@ -209,7 +216,7 @@
             fontSize: "0.6rem",
           },
         },
-        status && status.gateway_online ? "system online" : "system offline",
+        online ? "system online" : "system offline",
       ),
     );
   }
