@@ -14,6 +14,7 @@ These are **not bundled with `hermes-agent`**. The core repo ships only the plug
 | [`example-dashboard`](./example-dashboard) | `dashboard/manifest.json` | Bare-minimum dashboard plugin — a tab, a slot injection, a backend route |
 | [`plugin-hook-example`](./plugin-hook-example) | `ctx.register_hook()` | A `transform_llm_output` hook — keyword-only callback, `None` to pass through, masking SSNs/card numbers in the final text |
 | [`example-desktop-statusbar`](./example-desktop-statusbar) | `STATUSBAR_AREAS.right` + `render` | Desktop status-bar chip — a stateful React component in one slot, the app's tooltip, theme variables, no build step |
+| [`example-desktop-composer-buttons`](./example-desktop-composer-buttons) | `COMPOSER_AREAS.top` + `host.composer.submit` | One-click prompt buttons above the chat input — fail-closed send, a user-editable list in the plugin's `ctx.files` data folder |
 | [`strike-freedom-cockpit`](./strike-freedom-cockpit) | dashboard theme + slot plugin | Complete custom-skin reskin — palette, layout variant, asset slots, sidebar HUD |
 
 ## Installing an example as a user plugin
@@ -45,6 +46,7 @@ For dashboard plugins, restart the web UI (or `GET /api/dashboard/plugins/rescan
 ```bash
 mkdir -p ~/.hermes/desktop-plugins
 cp -r hermes-example-plugins/example-desktop-statusbar ~/.hermes/desktop-plugins/
+cp -r hermes-example-plugins/example-desktop-composer-buttons ~/.hermes/desktop-plugins/
 ```
 
 ## Reading order for plugin authors
@@ -61,6 +63,7 @@ Pair each plugin in this repo with its docs page:
 | `example-dashboard` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 | `plugin-hook-example` | [Event Hooks](https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks#transform_llm_output) |
 | `example-desktop-statusbar` | [Desktop Plugin SDK](https://hermes-agent.nousresearch.com/docs/developer-guide/desktop-plugin-sdk) |
+| `example-desktop-composer-buttons` | [Desktop Plugin SDK](https://hermes-agent.nousresearch.com/docs/developer-guide/desktop-plugin-sdk) |
 | `strike-freedom-cockpit` | [Extending the Dashboard](https://hermes-agent.nousresearch.com/docs/user-guide/features/extending-the-dashboard) |
 
 ## Contributing a new example
